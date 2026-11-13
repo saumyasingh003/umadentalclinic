@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, CheckCircle2, ChevronRight, Phone, UserCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarCheck, CheckCircle2, ChevronRight, Phone, UserCheck } from "lucide-react";
 import { getService, services } from "@/lib/services";
 
 export function generateStaticParams() {
@@ -26,6 +26,7 @@ const ServicePage = async ({ params }: PageProps<"/services/[slug]">) => {
   if (!service) notFound();
 
   const { icon: Icon, title, text, overview, idealFor, benefits, steps } = service;
+  const bookHref = `/book-appointment?service=${encodeURIComponent(title)}`;
   // The next four services after this one (wrapping around)
   const idx = services.findIndex((s) => s.slug === slug);
   const others = Array.from({ length: 4 }, (_, i) => services[(idx + 1 + i) % services.length]);
@@ -43,14 +44,10 @@ const ServicePage = async ({ params }: PageProps<"/services/[slug]">) => {
             All Services
           </Link>
 
-          {/* Phones: gradient card. Tablet/laptop: icon tile beside the title (original layout). */}
-          <div className="relative mt-3 overflow-hidden rounded-3xl bg-linear-to-br from-brand via-brand to-action px-5 py-6 sm:mt-6 sm:flex sm:items-center sm:gap-6 sm:overflow-visible sm:rounded-none sm:bg-none sm:p-0">
+          {/* Phones: gradient card. Tablet/laptop: title on the left, booking button on the right. */}
+          <div className="relative mt-3 overflow-hidden rounded-3xl bg-linear-to-br from-brand via-brand to-action px-5 py-6 sm:mt-6 sm:flex sm:items-center sm:justify-between sm:gap-8 sm:overflow-visible sm:rounded-none sm:bg-none sm:p-0">
             <Icon aria-hidden="true" className="absolute -bottom-6 -right-6 h-36 w-36 rotate-12 text-white/[0.07] sm:hidden" />
             <div aria-hidden="true" className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-highlight/20 blur-3xl sm:hidden" />
-
-            <span className="hidden h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br from-action to-brand text-white shadow-lg shadow-action/30 sm:flex">
-              <Icon className="h-10 w-10" />
-            </span>
 
             <div className="relative">
               <p className="inline-flex items-center gap-2 rounded-full bg-white/10 py-1 pl-1 pr-3 text-xs font-semibold text-light ring-1 ring-white/15 sm:hidden">
@@ -66,6 +63,14 @@ const ServicePage = async ({ params }: PageProps<"/services/[slug]">) => {
                 {text}
               </p>
             </div>
+
+            <Link
+              href={bookHref}
+              className="relative mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-brand shadow-md transition-colors hover:bg-highlight sm:mt-0 sm:w-auto sm:shrink-0 sm:bg-brand sm:px-7 sm:py-3.5 sm:text-base sm:text-white sm:shadow-lg sm:shadow-brand/20 sm:hover:bg-action"
+            >
+              <CalendarCheck className="h-4 w-4 sm:h-5 sm:w-5" />
+              Book Appointment
+            </Link>
           </div>
         </div>
       </section>
@@ -136,9 +141,16 @@ const ServicePage = async ({ params }: PageProps<"/services/[slug]">) => {
 
             <div className="relative overflow-hidden rounded-3xl bg-brand p-6 text-white">
               <div aria-hidden="true" className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-action/40 blur-2xl" />
-              <h2 className="relative font-bold">Have a question?</h2>
-              <p className="relative mt-1 text-sm text-light/70">Call us to discuss this treatment.</p>
-              <div className="relative mt-4 space-y-2">
+              <h2 className="relative font-bold">Book this treatment</h2>
+              <p className="relative mt-1 text-sm text-light/70">Pick a date that suits you, or call us to discuss it first.</p>
+              <Link
+                href={bookHref}
+                className="relative mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-brand transition-colors hover:bg-highlight"
+              >
+                <CalendarCheck className="h-4 w-4" />
+                Book Appointment
+              </Link>
+              <div className="relative mt-3 space-y-2">
                 {phones.map((p) => (
                   <a
                     key={p}

@@ -3,66 +3,71 @@ import { Plus } from "lucide-react";
 
 type Faq = { q: string; a: React.ReactNode; plain: string };
 
+const link = "font-semibold text-action hover:underline";
+
+// General patient information — have the doctor review the clinical answers.
 const faqs: Faq[] = [
   {
-    q: "What are your clinic timings?",
+    q: "When is the clinic open, and how do I book a visit?",
     plain:
-      "Morning: 9:30 AM to 2:00 PM. Evening: 4:00 PM to 7:00 PM. The clinic is closed on Sundays.",
+      "We're open Monday to Saturday, 9:30 AM – 2:00 PM and 4:00 PM – 7:00 PM, and closed on Sundays. Book online through our appointment form, or call +91 93085 07247 or +91 86748 95526.",
     a: (
       <>
-        <span className="block">Morning: 9:30 AM – 2:00 PM</span>
-        <span className="block">Evening: 4:00 PM – 7:00 PM</span>
-        <span className="mt-1 block font-semibold text-brand">The clinic is closed on Sundays.</span>
+        We&apos;re open <strong className="font-semibold text-brand">Monday to Saturday</strong>, 9:30 AM – 2:00 PM and
+        4:00 PM – 7:00 PM, and closed on Sundays. You can{" "}
+        <Link href="/book-appointment" className={link}>book online</Link> in under a minute, or call us on{" "}
+        <a href="tel:+919308507247" className={link}>+91 93085 07247</a> /{" "}
+        <a href="tel:+918674895526" className={link}>+91 86748 95526</a>.
       </>
     ),
   },
   {
-    q: "How do I book an appointment?",
+    q: "Does root canal treatment hurt?",
     plain:
-      "Call us on +91 93085 07247 or +91 86748 95526, or send us a message from the Contact page and we'll get back to you.",
+      "Root canal treatment is done under local anaesthesia, so most patients feel only mild pressure, not pain. It actually relieves the severe toothache caused by the infection, and lets you keep your natural tooth.",
     a: (
       <>
-        Call us on{" "}
-        <a href="tel:+919308507247" className="font-semibold text-action hover:underline">+91 93085 07247</a> or{" "}
-        <a href="tel:+918674895526" className="font-semibold text-action hover:underline">+91 86748 95526</a>, or send us a
-        message from the{" "}
-        <Link href="/contact" className="font-semibold text-action hover:underline">Contact page</Link> and we&apos;ll get
-        back to you.
+        Root canal treatment is done under local anaesthesia, so most patients feel only mild pressure, not pain. In
+        fact, it <strong className="font-semibold text-brand">relieves</strong> the severe toothache caused by the
+        infection and lets you keep your natural tooth.{" "}
+        <Link href="/services/root-canal-treatment" className={link}>Learn more</Link>.
       </>
     ),
   },
   {
-    q: "Where is Uma Dental Care located?",
+    q: "I have a toothache. What should I do until I see the dentist?",
     plain:
-      "Below Sahara India Office, North of Axis Bank, Supaul Kachahri Road, Supaul Bazar, Supaul, Bihar – 852131.",
+      "Rinse with warm salt water, gently floss to remove any trapped food, and avoid very hot, cold or sweet foods. A cold compress on the cheek can ease swelling. Don't place a painkiller tablet directly on the gum. Call us as soon as possible so we can find the cause.",
     a: (
       <>
-        Below Sahara India Office, North of Axis Bank, Supaul Kachahri Road, Supaul Bazar, Supaul, Bihar – 852131.{" "}
-        <Link href="/contact" className="font-semibold text-action hover:underline">See it on the map</Link>.
+        Rinse with warm salt water, gently floss to remove any trapped food, and avoid very hot, cold or sweet foods. A
+        cold compress on the cheek can ease swelling. Don&apos;t place a painkiller tablet directly on the gum.{" "}
+        <a href="tel:+919308507247" className={link}>Call us</a> as soon as you can so we can find and treat the cause.
       </>
     ),
   },
   {
-    q: "What treatments do you offer?",
+    q: "How often should I get a dental check-up and cleaning?",
     plain:
-      "We offer complete dental solutions, including root canal treatment, cleaning and polishing, fixed teeth, dental capping, tooth coloured fillings, smile designing, impaction surgery, dental bleaching, splinting and tooth extraction.",
+      "For most people, a check-up and professional cleaning every 6 months is ideal. Regular visits catch cavities and gum problems early, when treatment is simpler and less costly.",
     a: (
       <>
-        We offer complete dental solutions, including root canal treatment, cleaning &amp; polishing, fixed teeth,
-        dental capping, tooth coloured fillings, smile designing, impaction surgery, dental bleaching, splinting and
-        tooth extraction.{" "}
-        <Link href="/services" className="font-semibold text-action hover:underline">View all services</Link>.
+        For most people, a check-up and{" "}
+        <Link href="/services/dental-cleaning-polishing" className={link}>professional cleaning</Link> every{" "}
+        <strong className="font-semibold text-brand">6 months</strong> is ideal. Regular visits catch cavities and gum
+        problems early, when treatment is simpler and less costly.
       </>
     ),
   },
   {
-    q: "Is root canal treatment painful?",
+    q: "Is professional teeth whitening safe for my teeth?",
     plain:
-      "Root canal treatment is done under local anaesthesia, so most patients feel only pressure, not pain. It actually relieves the pain caused by the infected tooth.",
+      "Yes. Professional bleaching done under a dentist's supervision is safe for enamel. Some people feel mild, temporary sensitivity for a day or two. We check your teeth and gums first to make sure whitening is right for you.",
     a: (
       <>
-        Root canal treatment is done under local anaesthesia, so most patients feel only pressure, not pain. In fact,
-        it relieves the pain caused by the infected tooth.
+        Yes. Professional bleaching done under a dentist&apos;s supervision is safe for your enamel. Some people feel
+        mild, temporary sensitivity for a day or two. We check your teeth and gums first to make sure{" "}
+        <Link href="/services/dental-bleaching" className={link}>whitening</Link> is right for you.
       </>
     ),
   },
@@ -92,14 +97,14 @@ const FAQ = () => (
       </div>
 
       {/* Accordion */}
-      <div className="space-y-3 lg:col-span-8">
+      <div className="divide-y divide-brand/10 border-y border-brand/10 lg:col-span-8">
         {faqs.map((f, i) => (
           <details
             key={f.q}
             name="faq"
-            className="group rounded-2xl bg-white ring-1 ring-highlight/30 transition-shadow open:bg-light/50 open:shadow-[0_12px_30px_-18px_rgba(11,45,91,0.35)] open:ring-action/40"
+            className="group"
           >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 sm:px-6 sm:py-5 [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 sm:py-5 [&::-webkit-details-marker]:hidden">
               <span className="flex items-center gap-3 sm:gap-4">
                 <span className="text-sm font-bold text-highlight transition-colors group-open:text-action">
                   {String(i + 1).padStart(2, "0")}
@@ -110,7 +115,7 @@ const FAQ = () => (
                 <Plus className="h-4 w-4" />
               </span>
             </summary>
-            <div className="px-5 pb-5 pl-12 text-sm leading-relaxed text-brand/75 sm:px-6 sm:pb-6 sm:pl-[3.75rem] sm:text-base">
+            <div className="pb-5 pl-7 pr-12 font-answer text-[0.95rem] leading-relaxed text-brand/75 sm:pb-6 sm:pl-9 sm:pr-14 sm:text-base">
               {f.a}
             </div>
           </details>

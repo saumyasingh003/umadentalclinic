@@ -16,7 +16,7 @@ const featured = FEATURED.map((slug) => services.find((s) => s.slug === slug)).f
 );
 
 const HomeServices = () => (
-  <section className="bg-light">
+  <section className="bg-white">
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
       {/* Heading */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -39,7 +39,7 @@ const HomeServices = () => (
 
       {/* Cards */}
       <div className="mt-8 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-        {featured.map(({ slug, icon: Icon, title, text }, i) => (
+        {featured.map(({ slug, title, text }, i) => (
           <Link
             key={slug}
             href={`/services/${slug}`}
@@ -51,10 +51,6 @@ const HomeServices = () => (
               className="pointer-events-none absolute right-4 top-3 hidden text-3xl font-extrabold text-light transition-colors group-hover:text-highlight/30 sm:block"
             >
               {String(i + 1).padStart(2, "0")}
-            </span>
-
-            <span className="relative hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-action to-brand text-white shadow-md shadow-action/25 transition-transform duration-300 group-hover:-rotate-6 sm:flex">
-              <Icon className="h-5 w-5" />
             </span>
 
             <div className="relative min-w-0 flex-1 sm:pr-8">
