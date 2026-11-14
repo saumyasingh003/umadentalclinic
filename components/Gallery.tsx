@@ -56,7 +56,7 @@ const slots = [
 
 const Gallery = () => (
   <section className="bg-white">
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-12 pt-6 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-2xl font-bold leading-tight text-brand sm:text-4xl">
           Healthy Smiles <span className="text-action">Start Here</span>

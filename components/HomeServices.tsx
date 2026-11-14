@@ -17,7 +17,7 @@ const featured = FEATURED.map((slug) => services.find((s) => s.slug === slug)).f
 
 const HomeServices = () => (
   <section className="bg-white">
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-6 pt-12 sm:px-6 sm:py-20 lg:px-8">
       {/* Heading */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">

@@ -1,7 +1,6 @@
-import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
@@ -9,46 +8,50 @@ export const metadata: Metadata = {
   description: "Get in touch with Uma Dental Care to book an appointment or ask a question.",
 };
 
-type InfoLine = { text: string; href?: string; external?: boolean; strong?: boolean };
-
-// Details from the clinic signboard.
 const ADDRESS =
   "Below Sahara India Office, North of Axis Bank, Supaul Kachahri Road, Supaul Bazar, Supaul, Bihar 852131";
 const MAP_QUERY = encodeURIComponent(`Uma Dental Care, ${ADDRESS}`);
 const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`;
 const MAP_EMBED_URL = `https://www.google.com/maps?q=${MAP_QUERY}&output=embed`;
 
-const contactInfo: { icon: ComponentType<{ className?: string }>; title: string; lines: InfoLine[] }[] = [
+type ContactItem = {
+  label: string;
+  lines: { text: string; href?: string; strong?: boolean }[];
+  href?: string;
+  external?: boolean;
+};
+
+// Details from the clinic signboard.
+const contactInfo: ContactItem[] = [
   {
-    icon: Phone,
-    title: "Call Us",
+    label: "Call us",
     lines: [
       { text: "+91 93085 07247", href: "tel:+919308507247" },
       { text: "+91 86748 95526", href: "tel:+918674895526" },
     ],
   },
   {
-    icon: Mail,
-    title: "Email Us",
-    lines: [{ text: "karan_apurva@yahoo.com", href: "mailto:karan_apurva@yahoo.com" }],
+    label: "Email us",
+    lines: [{ text: "karan_apurva@yahoo.com" }],
+    href: "mailto:karan_apurva@yahoo.com",
   },
   {
-    icon: MapPin,
-    title: "Visit Us",
+    label: "Visit us",
     lines: [
       { text: "Below Sahara India Office, North of Axis Bank," },
       { text: "Supaul Kachahri Road, Supaul Bazar," },
       { text: "Supaul, Bihar – 852131" },
-      { text: "Get Directions →", href: MAPS_URL, external: true },
     ],
+    href: MAPS_URL,
+    external: true,
   },
   {
-    icon: Clock,
-    title: "Opening Hours",
+    label: "Clinic timings",
     lines: [
+      { text: "Mon – Sat" },
       { text: "Morning: 9:30 AM – 2:00 PM" },
       { text: "Evening: 4:00 PM – 7:00 PM" },
-      { text: "Sunday Closed", strong: true },
+      { text: "Sunday closed", strong: true },
     ],
   },
 ];
@@ -60,7 +63,7 @@ const ContactPage = () => (
       <div className="mx-auto max-w-7xl px-4 pb-2 pt-6 sm:px-6 sm:pb-4 sm:pt-8 md:pt-10 lg:px-8">
         <div className="max-w-2xl">
           <h1 className="text-2xl font-bold leading-[1.2] tracking-tight text-brand sm:text-4xl lg:text-[2.75rem]">
-            We&apos;d Love to <span className="text-action">Hear From You</span>
+            Get in <span className="text-action">Touch</span>
           </h1>
 
           <p className="mt-2 text-sm text-brand/60 sm:text-base">
@@ -85,79 +88,82 @@ const ContactPage = () => (
         </div>
 
         {/* Form card — overlaps the photo on phones/tablets */}
-        <div className="relative z-10 -mt-10 rounded-2xl bg-white p-5 shadow-[0_18px_45px_-20px_rgba(11,45,91,0.35)] ring-1 ring-highlight/25 sm:-mt-14 sm:p-8 lg:m-0 lg:rounded-3xl lg:p-10 lg:shadow-none lg:ring-1 lg:ring-brand/10">
+        <div className="relative z-10 -mt-10 rounded-2xl bg-white p-4 shadow-[0_18px_45px_-20px_rgba(11,45,91,0.35)] ring-1 ring-highlight/25 sm:-mt-14 sm:p-8 lg:m-0 lg:rounded-3xl lg:p-10 lg:shadow-none lg:ring-1 lg:ring-brand/10">
           <div className="flex items-center gap-3">
-            <span className="h-8 w-1 rounded-full bg-linear-to-b from-action to-highlight" />
+            <span className="h-6 w-1 rounded-full sm:h-8 bg-linear-to-b from-action to-highlight" />
             <div>
-              <h2 className="text-xl font-bold text-brand sm:text-2xl lg:text-3xl">Send Us a Message</h2>
-              <p className="mt-0.5 text-xs text-brand/60 sm:text-sm">
+              <h2 className="text-lg font-bold text-brand sm:text-2xl lg:text-3xl">Send Us a Message</h2>
+              <p className="mt-0.5 hidden text-sm text-brand/60 sm:block">
                 We&apos;ll get back to you shortly.
               </p>
             </div>
           </div>
-          <div className="mt-6 sm:mt-8">
+          <div className="mt-3 sm:mt-8">
             <ContactForm />
           </div>
         </div>
       </div>
     </section>
 
+    {/* Contact details — one row */}
     <section className="bg-white">
-      <div className="mx-auto grid max-w-7xl gap-x-6 gap-y-10 px-4 pb-12 pt-14 sm:gap-y-12 sm:pb-16 sm:pt-20 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
-        {contactInfo.map(({ icon: Icon, title, lines }) => (
-          <div
-            key={title}
-            className="group relative mx-auto w-full max-w-xs rounded-2xl bg-white px-4 pb-5 pt-9 text-center sm:max-w-none sm:rounded-3xl sm:px-6 sm:pb-8 sm:pt-12 shadow-[0_18px_45px_-20px_rgba(11,45,91,0.35)] ring-1 ring-highlight/25 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_55px_-18px_rgba(47,128,237,0.45)]"
-          >
-            {/* Floating icon */}
-            <span className="absolute -top-6 left-1/2 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-xl sm:-top-7 sm:h-14 sm:w-14 sm:rounded-2xl bg-linear-to-br from-action to-brand text-white shadow-lg shadow-action/30 ring-4 ring-white transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-6">
-              <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-            </span>
-
-            {/* Decorative watermark icon */}
-            <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-3xl">
-              <Icon className="absolute -bottom-5 -right-5 h-20 w-20 sm:-bottom-6 sm:-right-6 sm:h-28 sm:w-28 text-light transition-colors duration-300 group-hover:text-highlight/20" />
-            </span>
-
-            <div className="relative">
-              <h3 className="text-base font-bold text-brand sm:text-lg">{title}</h3>
-              <span className="mx-auto mt-2 block h-0.5 w-8 rounded-full bg-highlight" />
-              <div className="mt-3 space-y-1 sm:mt-4 sm:space-y-1.5">
-                {lines.map(({ text, href, external, strong }) => (
-                  <p
-                    key={text}
-                    className={`text-sm [overflow-wrap:anywhere] ${
-                      strong
-                        ? "pt-1 font-bold uppercase tracking-wide text-brand"
-                        : "text-brand/70"
-                    }`}
+      <div className="mx-auto max-w-7xl px-4 pb-10 pt-10 sm:px-6 sm:pb-14 sm:pt-14 lg:px-8">
+        <ul className="grid overflow-hidden rounded-2xl ring-1 ring-brand/15 sm:grid-cols-2 lg:grid-cols-[1fr_1.15fr_1.5fr_1.25fr]">
+          {contactInfo.map(({ label, lines, href, external }, i) => {
+            const cls = `group relative block h-full px-5 py-4 sm:px-6 sm:py-5
+              ${i > 0 ? "border-t border-brand/10" : ""}
+              ${i === 1 ? "sm:border-t-0" : ""}
+              ${i % 2 === 1 ? "sm:border-l" : ""}
+              ${i >= 1 ? "lg:border-l lg:border-t-0" : ""}`;
+            const body = (
+              <>
+                <p className="flex items-center justify-between gap-3 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-action">
+                  {label}
+                  {href && (
+                    <ArrowUpRight className="h-4 w-4 shrink-0 text-brand/30 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-action" />
+                  )}
+                </p>
+                <div className="mt-1.5 space-y-0.5">
+                  {lines.map(({ text, href: lineHref, strong }) => (
+                    <p
+                      key={text}
+                      className={`text-sm leading-snug [overflow-wrap:anywhere] sm:text-[0.95rem] ${
+                        strong ? "pt-1 font-bold uppercase tracking-wide text-brand" : "font-semibold text-brand"
+                      }`}
+                    >
+                      {lineHref ? (
+                        <a href={lineHref} className="transition-colors hover:text-action">{text}</a>
+                      ) : (
+                        text
+                      )}
+                    </p>
+                  ))}
+                </div>
+              </>
+            );
+            return (
+              <li key={label}>
+                {href ? (
+                  <a
+                    href={href}
+                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className={`${cls} transition-colors hover:[&_p]:text-action`}
                   >
-                    {href ? (
-                      <a
-                        href={href}
-                        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                        className="font-medium transition-colors hover:text-action"
-                      >
-                        {text}
-                      </a>
-                    ) : (
-                      text
-                    )}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            {/* Bottom accent bar */}
-            <span className="absolute inset-x-6 bottom-0 h-1 origin-left scale-x-0 rounded-t-full bg-linear-to-r from-action to-highlight transition-transform duration-300 group-hover:scale-x-100" />
-          </div>
-        ))}
+                    {body}
+                  </a>
+                ) : (
+                  <div className={cls}>{body}</div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
 
     {/* Map */}
     <section className="bg-white">
-      <div className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 sm:pb-20 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pb-6 sm:px-6 sm:pb-20 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl shadow-[0_24px_60px_-28px_rgba(11,45,91,0.4)] ring-1 ring-highlight/25">
           <iframe
             title="Uma Dental Care location on Google Maps"

@@ -33,7 +33,7 @@ const OurStory = () => (
           </p>
         </div>
 
-        <blockquote className="mt-8 rounded-2xl bg-light px-5 py-4 sm:px-6">
+        <blockquote className="mt-8 text-center">
           <p className="text-lg font-semibold text-brand sm:text-xl">
             &ldquo;Complete Dental Solution &mdash; We Make You Smile.&rdquo;
           </p>
@@ -41,7 +41,7 @@ const OurStory = () => (
 
         <Link
           href="/contact"
-          className="group mt-8 inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-action sm:text-base"
+          className="group mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-action sm:text-base"
         >
           Get in Touch
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

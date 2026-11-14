@@ -109,7 +109,7 @@ const DatePicker = ({ id, value, onChange, invalid, describedBy, maxDaysAhead = 
         <div
           role="dialog"
           aria-label="Choose an appointment date"
-          className="absolute left-0 z-30 mt-2 w-64 rounded-2xl bg-white p-3 shadow-[0_20px_50px_-15px_rgba(11,45,91,0.35)] ring-1 ring-brand/10"
+          className="absolute inset-x-0 z-[60] mt-2 w-full rounded-2xl bg-white p-3 sm:right-auto sm:w-72 shadow-[0_20px_50px_-15px_rgba(11,45,91,0.35)] ring-1 ring-brand/10"
         >
           {/* Month header */}
           <div className="flex items-center justify-between">
@@ -163,7 +163,7 @@ const DatePicker = ({ id, value, onChange, invalid, describedBy, maxDaysAhead = 
                     onChange(iso);
                     setOpen(false);
                   }}
-                  className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-xs transition-colors
+                  className={`mx-auto flex aspect-square w-full max-w-9 items-center justify-center rounded-full text-xs transition-colors
                     ${selected ? "bg-brand font-semibold text-white" : ""}
                     ${!selected && !disabled ? "text-brand hover:bg-light hover:text-action" : ""}
                     ${!selected && isToday ? "ring-1 ring-action" : ""}

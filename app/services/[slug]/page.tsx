@@ -139,25 +139,24 @@ const ServicePage = async ({ params }: PageProps<"/services/[slug]">) => {
               </ul>
             </div>
 
-            <div className="relative overflow-hidden rounded-3xl bg-brand p-6 text-white">
-              <div aria-hidden="true" className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-action/40 blur-2xl" />
-              <h2 className="relative font-bold">Book this treatment</h2>
-              <p className="relative mt-1 text-sm text-light/70">Pick a date that suits you, or call us to discuss it first.</p>
+            <div className="rounded-3xl p-6 ring-1 ring-highlight/30">
+              <h2 className="font-bold text-brand">Book this treatment</h2>
+              <p className="mt-1 text-sm text-brand/65">Pick a date that suits you, or call us to discuss it first.</p>
               <Link
                 href={bookHref}
-                className="relative mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-brand transition-colors hover:bg-highlight"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-action"
               >
                 <CalendarCheck className="h-4 w-4" />
                 Book Appointment
               </Link>
-              <div className="relative mt-3 space-y-2">
+              <div className="mt-3 space-y-2">
                 {phones.map((p) => (
                   <a
                     key={p}
                     href={`tel:+91${p}`}
-                    className="flex items-center gap-2.5 rounded-xl bg-white/10 px-4 py-2.5 text-sm font-semibold transition-colors hover:bg-white/20"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-brand ring-1 ring-brand/15 transition-colors hover:bg-light hover:text-action"
                   >
-                    <Phone className="h-4 w-4 text-highlight" />
+                    <Phone className="h-4 w-4 text-action" />
                     +91 {p.slice(0, 5)} {p.slice(5)}
                   </a>
                 ))}

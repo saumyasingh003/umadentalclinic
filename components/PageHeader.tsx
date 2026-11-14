@@ -36,7 +36,7 @@ const renderTitle = (title: string, highlight?: string) => {
   return (
     <>
       {before}
-      <span className="relative inline-block whitespace-nowrap text-action">
+      <span className="relative inline-block whitespace-nowrap text-highlight md:text-action">
         {highlight}
         <Swoosh />
       </span>
@@ -53,43 +53,34 @@ const PageHeader = ({
   imageAlt,
   mobilePosition = "80% center",
 }: PageHeaderProps) => (
-  <section className="relative isolate overflow-hidden bg-light">
-    {/* Background image (tablet/desktop) — no overlay */}
+  <section className="relative isolate overflow-hidden bg-brand md:bg-light">
+    {/* Background image. Phones: behind the text with a dark overlay. Tablet/desktop: no overlay. */}
     <Image
       src={image}
       alt={imageAlt}
       fill
       preload
       sizes="100vw"
-      className="-z-10 hidden object-cover object-right md:block"
+      className="-z-20 object-cover object-(--mobile-pos) md:object-right"
+      style={{ "--mobile-pos": mobilePosition } as React.CSSProperties}
+    />
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 -z-10 bg-linear-to-br from-brand/90 via-brand/75 to-brand/45 md:hidden"
     />
 
-
-    <div className="mx-auto flex max-w-7xl items-center px-4 pt-6 sm:px-6 sm:pt-10 md:min-h-72 md:py-10 lg:min-h-80 lg:px-8">
+    <div className="mx-auto flex min-h-52 max-w-7xl items-center px-4 py-7 sm:px-6 md:min-h-72 md:py-10 lg:min-h-80 lg:px-8">
       <div className="max-w-xl md:max-w-md lg:max-w-2xl">
-
-        <h1 className="text-2xl font-bold leading-[1.2] tracking-tight text-brand sm:text-4xl lg:text-[2.75rem]">
+        <h1 className="text-2xl font-bold leading-[1.2] tracking-tight text-white sm:text-4xl md:text-brand lg:text-[2.75rem]">
           {renderTitle(title, highlight)}
         </h1>
 
         {description && (
-          <p className="mt-5 max-w-lg border-l-[3px] border-action pl-4 text-sm leading-relaxed text-brand/75 sm:text-lg">
+          <p className="mt-4 max-w-lg border-l-[3px] border-highlight pl-4 md:mt-5 text-sm leading-relaxed text-light/90 sm:text-lg md:border-action md:text-brand/75">
             {description}
           </p>
         )}
       </div>
-    </div>
-
-    {/* On phones the image sits below the text so it never covers it */}
-    <div className="relative mt-8 aspect-video w-full md:hidden">
-      <Image
-        src={image}
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover"
-        style={{ objectPosition: mobilePosition }}
-      />
     </div>
   </section>
 );

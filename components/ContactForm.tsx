@@ -7,9 +7,9 @@ import { Send } from "lucide-react";
 // message pre-filled and addressed to the clinic.
 const CLINIC_EMAIL = "karan_apurva@yahoo.com";
 
-const labelCls = "block text-xs font-semibold uppercase tracking-[0.12em] text-action";
+const labelCls = "block text-[0.65rem] font-semibold sm:text-xs uppercase tracking-[0.12em] text-action";
 const inputCls =
-  "mt-2 w-full border-0 border-b border-brand/20 bg-transparent px-0 py-2 text-brand placeholder:text-brand/30 transition-colors focus:border-action focus:outline-none focus:ring-0";
+  "mt-1 w-full border-0 border-b border-brand/20 bg-transparent px-0 py-1 text-brand sm:mt-2 sm:py-2 placeholder:text-brand/30 transition-colors focus:border-action focus:outline-none focus:ring-0";
 
 /** Keep digits only and drop a leading 91 / 0 (e.g. from autofill "+91 81027 73833"). */
 const normalisePhone = (value: string) => {
@@ -43,8 +43,8 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-7">
-      <div className="grid gap-7 sm:grid-cols-2 sm:gap-8">
+    <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-7">
+      <div className="grid gap-3 sm:grid-cols-2 sm:gap-8">
         <div>
           <label htmlFor="firstName" className={labelCls}>First Name</label>
           <input id="firstName" name="firstName" required autoComplete="given-name" className={inputCls} />
@@ -59,7 +59,7 @@ const ContactForm = () => {
         </div>
         <div>
           <label htmlFor="phone" className={labelCls}>Phone No</label>
-          <div className="mt-2 flex items-center border-b border-brand/20 transition-colors focus-within:border-action">
+          <div className="mt-1 flex items-center border-b sm:mt-2 border-brand/20 transition-colors focus-within:border-action">
             <span className="select-none pr-2 font-medium text-brand/60">+91</span>
             <input
               id="phone"
@@ -72,7 +72,7 @@ const ContactForm = () => {
               title="Enter a valid 10-digit mobile number"
               value={phone}
               onChange={(e) => setPhone(normalisePhone(e.target.value))}
-              className="w-full border-0 bg-transparent px-0 py-2 text-brand placeholder:text-brand/30 focus:outline-none focus:ring-0"
+              className="w-full border-0 bg-transparent px-0 py-1 text-brand sm:py-2 placeholder:text-brand/30 focus:outline-none focus:ring-0"
             />
           </div>
         </div>
@@ -80,13 +80,13 @@ const ContactForm = () => {
 
       <div>
         <label htmlFor="message" className={labelCls}>Message</label>
-        <textarea id="message" name="message" rows={4} required className={`${inputCls} resize-none`} />
+        <textarea id="message" name="message" rows={2} required className={`${inputCls} resize-none`} />
       </div>
 
 
       <button
         type="submit"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3.5 font-semibold text-white transition-colors hover:bg-action"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-6 py-2.5 text-sm font-semibold text-white sm:py-3.5 sm:text-base transition-colors hover:bg-action"
       >
         <Send className="h-4 w-4" />
         Send Message
